@@ -2,6 +2,7 @@
 #'
 #' @param x A vector containing numerics and NAs
 #' @return Either the sum of non-NA elements of the input vector, or NA if all elements of the vector are NA
+#' @noRd
 #' @examples
 #' x1 <- c(1,2,3,NA)
 #' sum_or_allNA(x1) # returns 6

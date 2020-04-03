@@ -4,6 +4,7 @@
 #' @return
 #' A data frame grouped by state. Contains weekly aggregated counts of positive tests, negative tests, death, and hospitalizations.
 #' Time is measured in epidemiological weeks since 2020-03-01.
+#' @noRd
 #' @examples
 #' dat <- pull_dat()
 #' dat2 <- clean_dat(dat)

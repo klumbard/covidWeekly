@@ -2,6 +2,7 @@
 #'
 #' @param dat A data frame of downloaded state-level data from covidtracking.com
 #' @return A data frame grouped by state. Contains daily counts of positive tests, negative tests, death, and hospitalizations.
+#' @noRd
 #' @examples
 #' dat <- pull_dat()
 #' dat2 <- clean_dat(dat)

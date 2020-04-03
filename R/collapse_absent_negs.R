@@ -5,6 +5,7 @@
 #' A data frame grouped by state. Contains daily counts of positive tests, negative tests, death, and hospitalizations. For dates
 #' For those dates without negative incidence data in a given state, this function sums up the positive cases over those dates
 #' and adds this sum to the number of positive cases in the next date which does contain negative incidence.
+#' @noRd
 #' @examples
 #' dat <- pull_dat()
 #' dat2 <- clean_dat(dat)

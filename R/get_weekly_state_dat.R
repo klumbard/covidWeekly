@@ -6,6 +6,7 @@
 #' state represents the day before covidtracking.com had data for that state.
 #' @examples
 #' dat <- get_weekly_state_dat()
+#' @export
 
 get_weekly_state_dat <- function(){
 
