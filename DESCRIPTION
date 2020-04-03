@@ -1,0 +1,19 @@
+Package: covidWeekly
+Type: Package
+Title: Get Week-Level Data from covidtracking.com
+Version: 0.1.0
+Date: 2020-04-02
+Authors@R: person("Keith", "Lumbard", email = "KLumbard@gmail.com",
+  role = c("aut", "cre"))
+Description: Download Daily State Data from covidtracking.com and Aggregate to Weekly
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr (>= 0.8.5),
+    lubridate (>= 1.7.4),
+    stringr (>= 1.4.0),
+    magrittr (>= 1.5)
+Suggests:
+    testthat (>= 2.3.2)
+RoxygenNote: 7.0.2
