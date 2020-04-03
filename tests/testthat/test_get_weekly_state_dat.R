@@ -4,16 +4,11 @@ library(covidWeekly)
 testthat::test_that("final states column hasn't changed", {
 
   expect_equal(
-    dplyr::filter(get_weekly_state_dat(),
-                  state %in% c("FL", "NY", "GA") & epiweekRelative <= 4)$state,
+    as.character(dplyr::filter(get_weekly_state_dat(),
+                  state %in% c("FL", "NY", "GA") & epiweekRelative <= 4)$state),
 
-    structure(c(10L, 10L, 10L, 10L, 10L, 11L, 11L, 11L, 36L, 36L,
-                36L, 36L, 36L), .Label = c("AK", "AL", "AR", "AZ", "CA", "CO",
-                                           "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN",
-                                           "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT",
-                                           "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR",
-                                           "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",
-                                           "WA", "WI", "WV", "WY"), class = "factor"))
+    c("FL", "FL", "FL", "FL", "FL", "GA", "GA", "GA", "NY", "NY",
+      "NY", "NY", "NY"))
 })
 
 testthat::test_that("final epiweekRelative column hasn't changed", {
