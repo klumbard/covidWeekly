@@ -1,3 +1,2 @@
-exportPattern("^[[:alpha:]]+")
 importFrom(magrittr,"%>%")
 export(get_weekly_state_dat)
