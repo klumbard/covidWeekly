@@ -18,7 +18,7 @@ collapse_absent_negs <- function(dat){
     dplyr::group_by(state, idx = rev(cumsum(rev(!is.na(negToday))))) %>% # create new grouping variable that clusters data in "runs" of NAs along with the next row w/ observed data
     dplyr::mutate(posToday = sum_or_allNA(posToday)) %>% # sum over groups defined above
     dplyr::mutate(hospToday = sum_or_allNA(hospToday)) %>% # sum over groups defined above
-    dplyr::mutate(numtestsToday = sum_or_allNA(numtestsToday)) %>% # sum over groups defined above
+    dplyr::mutate(testsToday = sum_or_allNA(testsToday)) %>% # sum over groups defined above
     dplyr::mutate(deathToday = sum_or_allNA(deathToday)) %>% # sum over groups defined above
     dplyr::ungroup() %>%
     dplyr::filter(!is.na(negToday)) %>% # remove rows that were summed over

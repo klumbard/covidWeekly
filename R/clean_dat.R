@@ -54,7 +54,7 @@ clean_dat <- function(dat){
   names(dat_out) <- stringr::str_replace(names(dat_out), "positive", "pos")
   names(dat_out) <- stringr::str_replace(names(dat_out), "negative", "neg")
   names(dat_out) <- stringr::str_replace(names(dat_out), "hospitalized", "hosp")
-  names(dat_out) <- stringr::str_replace(names(dat_out), "totalTestResults", "numtests")
+  names(dat_out) <- stringr::str_replace(names(dat_out), "totalTestResults", "tests")
 
 
   dat_out

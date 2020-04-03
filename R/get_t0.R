@@ -21,7 +21,7 @@ get_t0 <- function(dat_daily, dat_weekly){
                            posWeekly = NA,
                            negWeekly = NA,
                            hospWeekly = NA,
-                           numtestsWeekly = NA,
+                           testsWeekly = NA,
                            deathWeekly = NA,
                            t0 = 1)
 

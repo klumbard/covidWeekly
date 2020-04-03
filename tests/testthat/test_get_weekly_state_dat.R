@@ -53,7 +53,7 @@ testthat::test_that("final hospWeekly column hasn't changed", {
 
   expect_equal(
     dplyr::filter(get_weekly_state_dat(),
-                  state %in% c("FL", "NY", "GA") & epiweekRelative <= 4)$numtestsWeekly,
+                  state %in% c("FL", "NY", "GA") & epiweekRelative <= 4)$testsWeekly,
 
     c(NA, 114L, 441L, 6682L, 31892L, NA, 3064L, 7987L, NA, 168L,
       3135L, 42134L, 110497L))

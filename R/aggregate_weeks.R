@@ -23,7 +23,7 @@ aggregate_weeks <- function(dat){
                                            as.numeric(max(date) - lubridate::ymd("2020-03-01")) / 7, epiweekRelative)) %>%
     dplyr::group_by(state, epiweekRelative) %>%
     dplyr::summarize_at(dplyr::vars(posToday, negToday, hospToday,
-                      numtestsToday, deathToday),
+                      testsToday, deathToday),
                  sum_or_allNA) %>%
     dplyr::mutate(t0 = 0) %>% # Indicator column for day before first obs or not (t0==1 will be added later)
     dplyr::arrange(state, epiweekRelative)
