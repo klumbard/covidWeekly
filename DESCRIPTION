@@ -3,8 +3,9 @@ Type: Package
 Title: Get Week-Level Data from covidtracking.com
 Version: 0.1.0
 Date: 2020-04-02
-Authors@R: person("Keith", "Lumbard", email = "KLumbard@gmail.com",
-  role = c("aut", "cre"))
+Authors@R: c(
+  person("Keith", "Lumbard", email = "KLumbard@gmail.com", role = c("aut", "cre")),
+  person("Jonathan", "Fintzi", email = "fintzij@gmail.com", role = "aut"))
 URL: http://github.com/klumbard/covidWeekly
 BugReports: http://github.com/klumbard/covidWeekly/issues
 Description: Download Daily State Data from covidtracking.com and Aggregate to Weekly

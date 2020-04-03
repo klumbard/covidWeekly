@@ -19,4 +19,4 @@ The important features of our data manipulations to know are as follows:
 
 2. Time is measured in terms of "epidemiological weeks" since the epidemiological week started on 2020-03-01 and is encoded by the column `epiweekRelative`. For each state, we include a row in which `t0 == 1` (time zero) which indicates the day before each state started reporting data. This row and the last row in any given state are the only ones which should have fractional parts to their `epiweekRelative` value; the first row because the first observation in any given state can occur in the middle of a week, and the last row because unless the data are pulled on Sunday, the most recent data don't comprise a full epidemiological week.
 
-3. For now, we are removing data from American Samoa (AS) and the Northern Mariana Islands (MR) because their data are too sparse to be usable.
+3. For now, we are removing data from American Samoa (AS), the Northern Mariana Islands (MR), the Virgin Islands (VI), and Guam (GU) because their data are too sparse to be usable.

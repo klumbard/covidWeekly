@@ -8,7 +8,7 @@
 clean_dat <- function(dat){
 
   # remove American Samoa
-  dat <- dplyr::filter(dat, !(state %in% c("AS", "MP")))
+  dat <- dplyr::filter(dat, !(state %in% c("AS", "MP", "VI", "GU")))
 
   # Make dates easier to work with and arrange by state and date
   dat_out <-

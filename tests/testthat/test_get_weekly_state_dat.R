@@ -9,10 +9,10 @@ testthat::test_that("final states column hasn't changed", {
 
     structure(c(10L, 10L, 10L, 10L, 10L, 11L, 11L, 11L, 36L, 36L,
                 36L, 36L, 36L), .Label = c("AK", "AL", "AR", "AZ", "CA", "CO",
-                                           "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN",
+                                           "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN",
                                            "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT",
                                            "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR",
-                                           "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT",
+                                           "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",
                                            "WA", "WI", "WV", "WY"), class = "factor"))
 })
 
