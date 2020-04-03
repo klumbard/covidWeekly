@@ -23,7 +23,7 @@ aggregate_weeks <- function(dat){
     dplyr::group_by(state, epiweekRelative) %>%
     dplyr::summarize_at(dplyr::vars(posToday, negToday, hospToday,
                       numtestsToday, deathToday),
-                 dplyr::funs(sum_or_allNA)) %>%
+                 sum_or_allNA) %>%
     dplyr::mutate(t0 = 0) %>% # Indicator column for day before first obs or not (t0==1 will be added later)
     dplyr::arrange(state, epiweekRelative)
 
