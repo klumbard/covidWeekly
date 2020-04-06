@@ -39,10 +39,7 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
         dplyr::filter(!(dplyr::row_number() == 1 & date != firstData)) %>% # Remove the row after that, too
         dplyr::slice(1)
 
-      # If this state had issues with missing negatives in the beginning, count t0 as the first date on which
-      # both positive and negatives were first reported. Otherwise, let t0 be the day BEFORE the first day
-      # on which data were recorded
-      this_date <- dplyr::if_else(state_daily$date[1] == state_daily$firstData[1], lubridate::ymd(state_daily$date[1] - 1), lubridate::ymd(state_daily$date[1]))
+      this_date <- lubridate::ymd(state_daily$date[1] - 1)
       t0_frame$epiWeek[i] <- lubridate::epiweek(this_date) + (lubridate::wday(this_date)/ 7)
     }
 
