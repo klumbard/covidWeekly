@@ -13,7 +13,7 @@
 #' dat <- get_weekly_state_dat(absent_negs = "collapse")
 #' @export
 
-get_weekly_state_dat <- function(absent_negs = "remove"){
+get_weekly_state_dat <- function(absent_negs = "remove", agg_interval = NULL){
 
   # Load daily cumulative state counts
   dat <- pull_dat()
@@ -32,7 +32,7 @@ get_weekly_state_dat <- function(absent_negs = "remove"){
   }
 
   # Aggregate data into weekly intervals relative to the epiweek starting on 2020-03-01
-  dat4 <- aggregate_weeks(dat3)
+  dat4 <- aggregate_weeks(dat3, agg_interval = agg_interval)
 
   # Add t0 == 1 row before first observation date
   dat_out <- get_t0(dat2, dat4, absent_negs = absent_negs)
