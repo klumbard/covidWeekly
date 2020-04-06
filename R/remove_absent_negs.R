@@ -16,7 +16,7 @@ remove_absent_negs <- function(dat){
   dat_out <-
     dat %>%
     dplyr::group_by(state) %>%
-    mutate(firstData = first(date)) %>%
+    dplyr::mutate(firstData = first(date)) %>%
     dplyr::filter(!is.na(negToday)) %>% # Remove all rows with NA negative test counts
     dplyr::filter(!(dplyr::row_number() == 1 & date != firstData)) %>% # Remove the row after that, too
     dplyr::ungroup() %>%
