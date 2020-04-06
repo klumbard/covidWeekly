@@ -34,7 +34,7 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
         dat_daily %>%
         dplyr::filter(state == this_state) %>%
         dplyr::arrange(date) %>%
-        mutate(firstData = first(date)) %>%
+        dplyr::mutate(firstData = first(date)) %>%
         dplyr::filter(!is.na(negToday)) %>% # Remove all rows with NA negative test counts
         dplyr::filter(!(dplyr::row_number() == 1 & date != firstData)) %>% # Remove the row after that, too
         dplyr::slice(1)
