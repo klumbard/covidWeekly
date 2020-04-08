@@ -20,6 +20,7 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
   nstate <- length(unique(dat_daily$state))
   t0_frame <- data.frame(state = unique(dat_daily$state),
                          epiWeek = numeric(nstate),
+                         endPt = as.Date(1:nstate, origin=Sys.Date()),
                          pos = NA,
                          neg = NA,
                          hosp = NA,
@@ -41,10 +42,11 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
 
       this_date <- lubridate::ymd(state_daily$date[1] - 1)
       t0_frame$epiWeek[i] <- lubridate::epiweek(this_date) + (lubridate::wday(this_date)/ 7)
+      t0_frame$endPt[i] <- lubridate::ymd(this_date)
     }
 
     dat_out <-
-      rbind(t0_frame, as.data.frame(dat_weekly)) %>%
+      rbind.data.frame(t0_frame, as.data.frame(dat_weekly)) %>%
       dplyr::group_by(state) %>%
       dplyr::arrange(state, epiWeek)
 
@@ -62,11 +64,12 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
 
       this_date <- state_daily$date - 1
       t0_frame$epiWeek[i] <- lubridate::epiweek(this_date) + (lubridate::wday(this_date)/ 7)
-
+      t0_frame$endPt[i] <- lubridate::ymd(this_date)
     }
 
+
     dat_out <-
-      rbind(t0_frame, as.data.frame(dat_weekly)) %>%
+      rbind.data.frame(t0_frame, as.data.frame(dat_weekly)) %>%
       dplyr::group_by(state) %>%
       dplyr::arrange(state, epiWeek)
   }

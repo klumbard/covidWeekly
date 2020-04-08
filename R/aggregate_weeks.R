@@ -24,10 +24,13 @@ aggregate_weeks <- function(dat, agg_interval){
                      negToday = sum_or_allNA(negToday),
                      hospToday = sum_or_allNA(hospToday),
                      testsToday = sum_or_allNA(testsToday),
-                     deathToday = sum_or_allNA(deathToday)) %>%
+                     deathToday = sum_or_allNA(deathToday),
+                     endPt = last(lubridate::ymd(date))) %>%
     dplyr::mutate(t0 = 0) %>% # Indicator column for day before first obs or not (t0==1 will be added later)
     dplyr::arrange(state, epiWeek) %>%
-    dplyr::select(-aggGroup)
+    dplyr::select(-aggGroup) %>%
+    dplyr::select(state, epiWeek, endPt, posToday, negToday, # rearrange columns
+                  hospToday, testsToday, deathToday, t0)
 
   names(dat_out) <- stringr::str_remove(names(dat_out), "Today")
 
