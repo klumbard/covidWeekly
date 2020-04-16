@@ -25,7 +25,7 @@ aggregate_weeks <- function(dat, agg_interval){
                      hospToday = sum_or_allNA(hospToday),
                      testsToday = sum_or_allNA(testsToday),
                      deathToday = sum_or_allNA(deathToday),
-                     endPt = last(lubridate::ymd(date))) %>%
+                     endPt = dplyr::last(lubridate::ymd(date))) %>%
     dplyr::mutate(t0 = 0) %>% # Indicator column for day before first obs or not (t0==1 will be added later)
     dplyr::arrange(state, epiWeek) %>%
     dplyr::select(-aggGroup) %>%
