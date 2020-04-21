@@ -32,7 +32,7 @@ get_t0 <- function(dat_weekly, absent_negs = "remove", agg_interval = NULL){
       for(i in 1:nrow(t0_frame)){
       this_state <- dplyr::filter(dat_weekly, state == t0_frame$state[i])[1, ]
       t0_frame$endPt[i] <- lubridate::ymd(this_state$endPt) - (agg_interval - 1)
-      t0_frame$epiWeek[i] <- lubridate::epiweek(t0_frame$endPt[i]) + (lubridate::wday(t0_frame$endPt[i])/ 7)
+      t0_frame$epiWeek[i] <- lubridate::epiweek(t0_frame$endPt[i]) + (lubridate::wday(t0_frame$endPt[i])/ 7) - 0.142
 
     }
 
