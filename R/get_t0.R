@@ -4,8 +4,10 @@
 #' @param dat_weekly An aggregated weekly-level dataset output by other functions in this package.
 #' @return
 #' A data frame grouped by state. Contains weekly aggregated counts of positive tests, negative tests, death, and hospitalizations.
-#' Time is measured in epidemiological weeks since 2020-03-01. The first row in each state corresponds to the day before the first
-#' observation in that state.
+#' Data are aggregated into chunks of length \code{agg_interval} since \code{2020-03-01}. The first row in each state corresponds to the day before the first
+#' reliable observations have been recorded in that state. If \code{absent_negs = "remove"}, this will be the first day on which the state reported both positive
+#' and negative test counts. If \code{absent_negs = "remove"}, this will be the day before the first observation in the dataset, regardless of whether negative counts
+#' are present.
 #' @noRd
 #' @examples
 #' dat <- pull_dat()
@@ -17,12 +19,13 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
 
   nstate <- length(unique(dat_daily$state))
   t0_frame <- data.frame(state = unique(dat_daily$state),
-                         epiweekRelative = numeric(nstate),
-                         posWeekly = NA,
-                         negWeekly = NA,
-                         hospWeekly = NA,
-                         testsWeekly = NA,
-                         deathWeekly = NA,
+                         epiWeek = numeric(nstate),
+                         endPt = as.Date(1:nstate, origin=Sys.Date()),
+                         pos = NA,
+                         neg = NA,
+                         hosp = NA,
+                         tests = NA,
+                         death = NA,
                          t0 = 1)
 
   if(absent_negs == "remove"){
@@ -32,22 +35,20 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
         dat_daily %>%
         dplyr::filter(state == this_state) %>%
         dplyr::arrange(date) %>%
-        mutate(firstData = first(date)) %>%
+        dplyr::mutate(firstData = dplyr::first(date)) %>%
         dplyr::filter(!is.na(negToday)) %>% # Remove all rows with NA negative test counts
         dplyr::filter(!(dplyr::row_number() == 1 & date != firstData)) %>% # Remove the row after that, too
         dplyr::slice(1)
 
-      # If this state had issues with missing negatives in the beginning, count t0 as the first date on which
-      # both positive and negatives were first reported. Otherwise, let t0 be the day BEFORE the first day
-      # on which data were recorded
-      this_date <- dplyr::if_else(state_daily$date[1] == state_daily$firstData[1], lubridate::ymd(state_daily$date[1] - 1), lubridate::ymd(state_daily$date[1]))
-      t0_frame$epiweekRelative[i] <- as.numeric(this_date - lubridate::ymd("2020-03-01")) / 7
+      this_date <- lubridate::ymd(state_daily$date[1] - 1)
+      t0_frame$epiWeek[i] <- lubridate::epiweek(this_date) + (lubridate::wday(this_date)/ 7)
+      t0_frame$endPt[i] <- lubridate::ymd(this_date)
     }
 
     dat_out <-
-      rbind(t0_frame, as.data.frame(dat_weekly)) %>%
+      rbind.data.frame(t0_frame, as.data.frame(dat_weekly)) %>%
       dplyr::group_by(state) %>%
-      dplyr::arrange(state, epiweekRelative)
+      dplyr::arrange(state, epiWeek)
 
     dat_out
 
@@ -62,14 +63,15 @@ get_t0 <- function(dat_daily, dat_weekly, absent_negs = "remove"){
         dplyr::slice(1)
 
       this_date <- state_daily$date - 1
-      t0_frame$epiweekRelative[i] <- as.numeric(this_date - lubridate::ymd("2020-03-01")) / 7
-
+      t0_frame$epiWeek[i] <- lubridate::epiweek(this_date) + (lubridate::wday(this_date)/ 7)
+      t0_frame$endPt[i] <- lubridate::ymd(this_date)
     }
 
+
     dat_out <-
-      rbind(t0_frame, as.data.frame(dat_weekly)) %>%
+      rbind.data.frame(t0_frame, as.data.frame(dat_weekly)) %>%
       dplyr::group_by(state) %>%
-      dplyr::arrange(state, epiweekRelative)
+      dplyr::arrange(state, epiWeek)
   }
 
   dat_out
