@@ -5,4 +5,4 @@
 #' @examples
 #' dat <- pull_dat()
 
-pull_dat <- function() read.csv("http://covidtracking.com/api/states/daily.csv",stringsAsFactors = FALSE)
+pull_dat <- function() read.csv("https://covidtracking.com/api/v1/states/daily.csv",stringsAsFactors = FALSE)
