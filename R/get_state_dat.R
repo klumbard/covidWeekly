@@ -2,6 +2,7 @@
 #' @param absent_negs A character vector controlling what is done with rows in which negative case counts
 #' aren't reported. This must be one of the strings \code{"remove"} (default) or \code{"collapse"}.
 #' @param agg_interval A positive whole number giving the desired length of aggregation intervals.
+#' @param t0 A date in the format "mm-dd-yyyy" which will serve as the "anchor" time from which we aggregate forwards
 #' @return A data frame grouped by state. Contains aggregated counts of positive tests, negative tests, death, and hospitalizations.
 #' If the default argument \code{"remove"} of \code{absent_negs} is chosen, rows without negative incidence data in a given state are removed, along with the first
 #' row in which negative cases ARE reported (because we don't know if this represents a "catchup" count or not). If the argument
@@ -14,7 +15,7 @@
 #' dat <- get_state_dat(absent_negs = "collapse", agg_interval = 7)
 #' @export
 
-get_state_dat <- function(absent_negs = "remove", agg_interval = NULL){
+get_state_dat <- function(absent_negs = "remove", agg_interval = NULL, t0 = "2020-03-01"){
 
   # Load daily cumulative state counts
   dat <- pull_dat()
@@ -33,10 +34,10 @@ get_state_dat <- function(absent_negs = "remove", agg_interval = NULL){
   }
 
   # Aggregate data into intervals relative to the epiweek starting on 2020-03-01
-  dat4 <- aggregate_weeks(dat3, agg_interval = agg_interval)
+  dat4 <- aggregate_weeks(dat3, agg_interval = agg_interval, t0 = t0)
 
   # Add t0 == 1 row before first observation date
-  dat_out <- get_t0(dat2, dat4, absent_negs = absent_negs)
+  dat_out <- get_t0(dat_weekly = dat4, absent_negs = absent_negs, agg_interval = agg_interval)
 
   dat_out
 
