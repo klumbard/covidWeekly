@@ -4,27 +4,27 @@
 \alias{get_state_dat}
 \title{Get aggregated state-level data from covidtracking.com}
 \usage{
-get_state_dat(absent_negs = "remove", agg_interval = NULL)
+get_state_dat(absent_negs = "remove", agg_interval = NULL, t0 = "2020-03-01")
 }
 \arguments{
 \item{absent_negs}{A character vector controlling what is done with rows in which negative case counts
 aren't reported. This must be one of the strings \code{"remove"} (default) or \code{"collapse"}.}
 
 \item{agg_interval}{A positive whole number giving the desired length of aggregation intervals.}
+
+\item{t0}{A date in the format "mm-dd-yyyy" which will serve as the "anchor" time from which we aggregate forwards}
 }
 \value{
 A data frame grouped by state. Contains aggregated counts of positive tests, negative tests, death, and hospitalizations.
 If the default argument \code{"remove"} of \code{absent_negs} is chosen, rows without negative incidence data in a given state are removed, along with the first
 row in which negative cases ARE reported (because we don't know if this represents a "catchup" count or not). If the argument
 \code{"collapse"} is chosen, the sum of the positive cases over those dates is added to the number of positive cases in the next date which does contain negative incidence.
-The t0 column for a given state represents the day before "reliable" data started being collected, which depends on which argument was chosen for
-dealing with \code{absent_negs}.
 }
 \description{
 Get aggregated state-level data from covidtracking.com
 }
 \examples{
-dat <- get_state_dat(absent_negs = "remove", agg_interval = 7)
+dat <- get_state_dat(absent_negs = "remove", agg_interval = 7, t0 = "2020-03-15")
 ## or ##
-dat <- get_state_dat(absent_negs = "collapse", agg_interval = 7)
+dat <- get_state_dat(absent_negs = "collapse", agg_interval = 7, t0 = "2020-03-15")
 }
