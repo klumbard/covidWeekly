@@ -9,7 +9,7 @@ Authors@R: c(
   person("Jonathan", "Fintzi", email = "fintzij@gmail.com", role = "aut"))
 URL: http://github.com/klumbard/covidWeekly
 BugReports: http://github.com/klumbard/covidWeekly/issues
-Description: Download Daily State Data from covidtracking.com and Aggregate to Weekly
+Description: Download Daily State Data from covidtracking.com and Aggregate
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
