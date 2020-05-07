@@ -2,7 +2,7 @@
 
 ## Download daily state-level data from covidtracking.com and aggregate to weekly
 
-The **covidWeekly** R package is a utility package that takes the state-level data from [covidtracking.com](https://covidtracking.com), makes various manipulations to the data, and aggregates the daily data into weekly intervals. The only function a user will likely need to use is the main wrapper function, `get_state_dat()`. The function currently takes arguments `absent_negs`, which controls what to do with rows that are missing negative counts, and `agg_interval`, which controls the length of the aggregation "chunks" into which we collect the data.
+The **covidWeekly** R package is a utility package that takes the state-level data from [covidtracking.com](https://covidtracking.com), makes various manipulations to the data, and aggregates the daily data into weekly intervals. The only function a user will likely need to use is the main wrapper function, `get_state_dat()`. The function currently takes arguments `absent_negs`, which controls what to do with rows that are missing negative counts, and `agg_interval`, which controls the length of the aggregation "chunks" into which we collect the data, and `t0` which defines the start date of the first aggregation interval.
 
 ## Getting Started
 This package may be installed directly from GitHub using the devtools package:
@@ -10,7 +10,7 @@ This package may be installed directly from GitHub using the devtools package:
 library(devtools)
 install_github("klumbard/covidWeekly") 
 library(covidWeekly)
-weekly_dat <- get_state_dat()
+weekly_dat <- get_state_dat(agg_interval = 7, t0 = "2020-03-15")
 ```
 
 ## Data Manipulation and Important Assumptions
@@ -19,6 +19,6 @@ The important features of our data manipulations to know are as follows:
 
 2. Time is measured in terms of "epidemiological weeks". For each state, we include a row in which `t0 == 1` (time zero) which indicates the day before each state started reporting **reliable** data. If the argument `absent_negs` is set to `"remove"`, `t0` will be the first day on which positive and negatives were reported in that state. If the argument is instead set to `collapse`, `t0` will be the day before the first observation of that state in the dataset, whether or not negative counts were reported from the beginning.
 
-3. Aggregation is done in chunks of length `agg_interval`, starting counting from 2020-03-01. For example, if a user specified the argument `agg_interval = 3`, "chunk" 1 would consist of data from 1 March, 2 March, and 3 March. "Chunk" 2 would consist of data from 4 March, 5 March, 6 March, etc. These are the "chunks"" that are then summed over to get the aggregated results that are returned to the user.  The `epiweek` column and `endPt` column both repreasent the right endpoint of the aggregation interval for that row; `epiweek` in fractional epidemiological weeks, and `endPt` raw date values.
+3. Aggregation is done in chunks of length `agg_interval`, starting counting from `t0`. For example, if a user specified the argument `agg_interval = 3`, and `t0 = "2020-03-15"`, "chunk" 1 would consist of data from 1 March, 2 March, and 3 March. "Chunk" 2 would consist of data from 4 March, 5 March, 6 March, etc. These are the "chunks"" that are then summed over to get the aggregated results that are returned to the user.  The `epiweek` column and `endPt` column both repreasent the right endpoint of the aggregation interval for that row; `epiweek` in fractional epidemiological weeks, and `endPt` raw date values.
 
 4. For now, we are removing data from American Samoa (AS), the Northern Mariana Islands (MR), the Virgin Islands (VI), and Guam (GU) because their data are too sparse to be usable.
