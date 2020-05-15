@@ -2,7 +2,7 @@
 
 ## Download daily state-level data from covidtracking.com and aggregate to weekly
 
-The **covidWeekly** R package is a utility package that takes the state-level data from [covidtracking.com](https://covidtracking.com), makes various manipulations to the data, and aggregates the daily data into weekly intervals. The only function a user will likely need to use is the main wrapper function, `get_state_dat()`. The function currently takes arguments `absent_negs`, which controls what to do with rows that are missing negative counts, and `agg_interval`, which controls the length of the aggregation "chunks" into which we collect the data, and `t0` which defines the start date of the first aggregation interval.
+The **covidWeekly** R package is a utility package that takes the state-level data from [covidtracking.com](https://covidtracking.com), makes various manipulations to the data, and aggregates the daily data into intervals of user-defined length. The only function a user will likely need to use is the main wrapper function, `get_state_dat()`. The function currently takes arguments `absent_negs`, which controls what to do with rows that are missing negative counts, `agg_interval`, which controls the length of the aggregation "chunks" into which we collect the data, and `t0` which defines the start date of the first aggregation interval.
 
 ## Getting Started
 This package may be installed directly from GitHub using the devtools package:
